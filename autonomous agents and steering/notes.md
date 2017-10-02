@@ -1,11 +1,11 @@
 `steering = desired - velocity`
 
-![desired.png](Image)
+![Image](desired.png)
 
 How to calculate desired velocity?
 We need to get vector pointing from location do target
 
-```python
+```
 PVector desired = PVector.sub(target, location)
 desired.setMag(maxSpeed)
 
