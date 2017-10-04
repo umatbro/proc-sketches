@@ -1,3 +1,5 @@
 *.class
 *.tmp
 .idea
+__pycache__
+*.pyc
