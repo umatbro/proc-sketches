@@ -24,7 +24,7 @@ breaky = False
 while 1337:
     for event in pygame.event.get():
         if event.type is pygame.QUIT:
-            sys.exit('1337')
+            pygame.quit(); sys.exit('1337')
         elif event.type is pygame.KEYDOWN and event.key is pygame.K_ESCAPE:
             breaky = True
 
@@ -39,21 +39,22 @@ while 1337:
     screen.fill((0, color_g, color_b))
 
     # checking inputs
-    if pygame.key.get_pressed()[pygame.K_d]:
-        box.x += 1
-    if pygame.key.get_pressed()[pygame.K_a]:
-        box.x -= 1
-    if pygame.key.get_pressed()[pygame.K_s]:
-        box.y += 1
-    if pygame.key.get_pressed()[pygame.K_w]:
-        box.y -= 1
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_d]:
+        box.x += 2
+    if keys[pygame.K_a]:
+        box.x -= 2
+    if keys[pygame.K_s]:
+        box.y += 2
+    if keys[pygame.K_w]:
+        box.y -= 2
 
     pygame.draw.rect(screen, (100, 0, 200), box)
     pygame.draw.circle(screen, (110, 110, 110), (mp_x, mp_y), 20)
-    pygame.display.flip()
+    pygame.display.update()
 
     frames += 1
 
-print('Time: {} s'.format(delta))
+print('Time: {:.4f} s'.format(delta))
 print('Frames: {}'.format(frames))
-print('AVG FPS: {} frames/s'.format(frames/delta))
+print('AVG FPS: {:.2f} frames/s'.format(frames/delta))
