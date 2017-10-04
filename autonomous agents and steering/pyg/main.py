@@ -1,19 +1,30 @@
 import sys
 import pygame
+from rocket import Rocket
 
 
 def remap(x, in_min, in_max, out_min, out_max):
+    """
+    Map input value (knowing minimum and maximum values that it can take) to another range
+
+    :param x: value to be mapped
+    :param in_min: minimum value of input
+    :param in_max: maximum value of input
+    :param out_min: minimum value of output
+    :param out_max: maximum value of output
+    :return: changed value
+    """
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
 
 pygame.init()
 
-width = 640
-height = 480
+width = 840
+height = 600
 MAX_FRAMES = 60
 screen = pygame.display.set_mode((width, height))
 
-box = pygame.Rect(10, 10, 50, 50)
+rocket = Rocket(screen)
 
 clock = pygame.time.Clock()
 delta = 0.0
@@ -38,18 +49,9 @@ while 1337:
     color_b = remap(mp_y, 0, height, 0, 255)
     screen.fill((0, color_g, color_b))
 
-    # checking inputs
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_d]:
-        box.x += 2
-    if keys[pygame.K_a]:
-        box.x -= 2
-    if keys[pygame.K_s]:
-        box.y += 2
-    if keys[pygame.K_w]:
-        box.y -= 2
-
-    pygame.draw.rect(screen, (100, 0, 200), box)
+    rocket.tick()
+    rocket.draw()
+    # pygame.draw.rect(screen, (100, 0, 200), box)
     pygame.draw.circle(screen, (110, 110, 110), (mp_x, mp_y), 20)
     pygame.display.update()
 

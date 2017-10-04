@@ -16,7 +16,7 @@ class Game:
         self.tps_clock = pygame.time.Clock()
         self.tps_delta = 0.0
 
-        self.player = Rocket(self)
+        self.player = Rocket(self.screen)
 
         breaky = False
 

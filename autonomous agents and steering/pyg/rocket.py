@@ -1,15 +1,14 @@
 import pygame
 from pygame.math import Vector2
-from math import pi
 
 
 class Rocket:
-    def __init__(self, game):
-        self.game = game
+    def __init__(self, screen):
+        self.screen = screen
 
-        width, height = self.game.screen.get_size()
+        self.width, self.height = self.screen.get_size()
 
-        self.pos = Vector2((width/2, height/2))
+        self.pos = Vector2((self.width/2, self.height/2))
         self.vel = Vector2(0, 0)
         self.acc = Vector2(0, 0)
 
@@ -34,14 +33,14 @@ class Rocket:
         self.pos += self.vel
         self.acc *= 0
 
-        if self.pos.x > self.game.width:
+        if self.pos.x > self.width:
             self.pos.x = 0
-        if self.pos.y > self.game.height:
+        if self.pos.y > self.height:
             self.pos.y = 0
         if self.pos.x < 0:
-            self.pos.x = self.game.width - 1
+            self.pos.x = self.width - 1
         if self.pos.y < 0:
-            self.pos.y = self.game.height - 1
+            self.pos.y = self.height - 1
 
     def draw(self):
         # base triangle
@@ -60,7 +59,7 @@ class Rocket:
         points = [Vector2(p.x, -p.y) + self.pos for p in points]
 
         # draw triangle
-        pygame.draw.polygon(self.game.screen, (0, 122, 255), points)
+        pygame.draw.polygon(self.screen, (0, 122, 255), points)
         # rect = pygame.Rect(self.pos.x, self.pos.y, 50, 50)
         # pygame.draw.rect(self.game.screen, (0, 150, 255), rect)
 
