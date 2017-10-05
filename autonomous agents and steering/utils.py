@@ -15,3 +15,15 @@ def remap(x, in_min, in_max, out_min, out_max):
     :return: changed value
     """
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
+
+
+def constrain(value, max_val, min_val=0):
+    """
+    Constrain given value in given boundries
+
+    :param value: value to be constrained
+    :param max_val: value cannot be more than this
+    :param min_val: returned value won't be lower than this
+    :return: constrained value
+    """
+    return max(min_val, min(value, max_val))

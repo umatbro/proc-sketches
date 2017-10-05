@@ -1,6 +1,7 @@
 import pygame
 from pygame.math import Vector2
 from utils import remap
+from flockin_py.flow_field import FlowField
 
 
 def limit_vector(vector, limit):
@@ -35,6 +36,16 @@ class Vehicle:
         self.acceleration *= 0
 
         self.position += self.velocity
+
+        s_w, s_h = self.screen.get_size()
+        if self.position.x > s_w:
+            self.position.x = 0
+        elif self.position.x < 0:
+            self.position.x = s_w - 1
+        if self.position.y > s_h:
+            self.position.y = 0
+        elif self.position.y < 0:
+            self.position.y = s_h - 1
 
     def apply_force(self, force):
         self.acceleration += force
@@ -75,6 +86,16 @@ class Vehicle:
         limit_vector(steer, self.maxforce)
         self.apply_force(steer)
 
+    def follow(self, flow_field: FlowField):
+        # vector on flow field at vehicle position
+        desired = flow_field.lookup(self.position)
+
+        desired *= self.maxspeed
+
+        steer = desired - self.velocity
+        limit_vector(steer, self.maxforce)
+        self.apply_force(steer)
+
     def display(self):
         points = [
             Vector2(0, self.r * 2),
@@ -82,13 +103,12 @@ class Vehicle:
             Vector2(self.r, -self.r * 2)
         ]
 
-        theta = self.velocity.angle_to(Vector2(0, 1))
+        theta = Vector2(0, 1).angle_to(self.velocity)
 
-        # rotate points
-        points = [p.rotate(theta) for p in points]
-        # and move to position
-        # points = [Vector2(-p.x, p.y) + self.position for p in points]
-        ref = Vector2(1, 0)
-        points = [p.reflect(ref) + self.position for p in points]
+        for p in points:
+            # rotate points
+            p.rotate_ip(theta)
+            # and move to position
+            p += self.position
 
         pygame.draw.polygon(self.screen, (127, 127, 127), points)
