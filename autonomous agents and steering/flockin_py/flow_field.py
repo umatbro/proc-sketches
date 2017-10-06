@@ -42,8 +42,7 @@ class FlowField:
 
         col = utils.constrain(int(position.x / self.resolution), self.cols - 1)
         row = utils.constrain(int(position.y / self.resolution), self.rows - 1)
-        vec = self.field[row][col]
-        return Vector2(vec.x, vec.y)
+        return self.field[row][col]
 
     def display(self):
         """

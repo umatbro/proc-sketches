@@ -35,6 +35,8 @@ while 1337:
             debug_ff = not debug_ff
         elif event.type is pygame.KEYDOWN and event.key is pygame.K_r:
             flow_field = FlowField(screen, 30)
+        elif event.type is pygame.KEYDOWN and event.key is pygame.K_c:
+            vehicles = []
 
     total_time += clock.tick(MAX_FRAMES)
     screen.fill((255, 255, 255))

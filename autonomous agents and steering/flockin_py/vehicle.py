@@ -90,9 +90,7 @@ class Vehicle:
         # vector on flow field at vehicle position
         desired = flow_field.lookup(self.position)
 
-        desired *= self.maxspeed
-
-        steer = desired - self.velocity
+        steer = desired * self.maxspeed - self.velocity
         limit_vector(steer, self.maxforce)
         self.apply_force(steer)
 
