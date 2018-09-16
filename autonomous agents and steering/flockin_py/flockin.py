@@ -1,7 +1,7 @@
 import sys
 import pygame
-from flockin_py.vehicle import Vehicle
-from flockin_py.flow_field import FlowField
+from vehicle import Vehicle
+from flow_field import FlowField
 
 pygame.init()
 

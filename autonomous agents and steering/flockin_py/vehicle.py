@@ -1,7 +1,7 @@
 import pygame
 from pygame.math import Vector2
 from utils import remap
-from flockin_py.flow_field import FlowField
+from flow_field import FlowField
 
 
 def limit_vector(vector, limit):
